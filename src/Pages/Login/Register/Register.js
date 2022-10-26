@@ -7,11 +7,11 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const Register = () => {
-    const { createUser, updateUserProfile, verifyEmail } = useContext(AuthContext);
     const [error, setError] = useState('');
     const [accepted, setAccepted] = useState(false);
+    const { createUser, updateUserProfile, verifyEmail } = useContext(AuthContext);
 
-    const handleRegister = (event) => {
+    const handleRegisterSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
         const name = form.name.value;
@@ -57,7 +57,7 @@ const Register = () => {
     };
 
     return (
-        <Form onSubmit={handleRegister}>
+        <Form onSubmit={handleRegisterSubmit}>
             <Form.Group className="mb-3">
                 <Form.Label>Your Full Name</Form.Label>
                 <Form.Control name='name' type="text" placeholder="your full name" />
