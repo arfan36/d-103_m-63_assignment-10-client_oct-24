@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Image } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -7,9 +7,15 @@ import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo.png';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import { FaUser } from "react-icons/fa";
+import { MdNightlight, MdOutlineLightMode } from "react-icons/md";
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext);
+    const [lightTheme, setLightTheme] = useState(true);
+
+    const handleTheme = () => {
+        setLightTheme(!lightTheme);
+    };
 
     const handleLogOut = () => {
         logOut().then(() => {
@@ -47,7 +53,15 @@ const Header = () => {
                         </div>
                     </Nav>
                     <Nav>
-                        <div className='d-flex align-items-center'>
+                        <div onClick={handleTheme} >
+                            {
+                                lightTheme ?
+                                    <Button variant="outline-secondary"><MdOutlineLightMode /> Light</Button>
+                                    :
+                                    <Button variant="dark"> <MdNightlight /> dark</Button>
+                            }
+                        </div>
+                        <div className='d-flex align-items-center ms-2'>
                             {
                                 user?.uid ?
                                     <>
