@@ -33,7 +33,7 @@ const Header = () => {
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
             <Container>
                 <Navbar.Brand>
-                    <Link to={'/'}>
+                    <Link to={'/courses'}>
                         <img
                             src={logo}
                             width="30"
