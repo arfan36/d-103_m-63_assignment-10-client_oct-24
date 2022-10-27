@@ -7,9 +7,10 @@ import Login from "../../Pages/Login/Login/Login";
 import Register from "../../Pages/Login/Register/Register";
 import TermsAndConditions from "../../Pages/Others/TermsAndConditions/TermsAndConditions";
 import Blog from "../../Pages/Shared/Blog/Blog";
-import CourseCard from "../../Pages/Shared/CourseCard/CourseCard";
 import FAQ from "../../Pages/Shared/FAQ/FAQ";
+import GetPremium from "../../Pages/Shared/GetPremium/GetPremium";
 import Profile from "../../Pages/Shared/Profile/Profile";
+import SingleCard from "../../Pages/SingleCard/SingleCard";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const routes = createBrowserRouter([
@@ -28,9 +29,9 @@ export const routes = createBrowserRouter([
                 loader: () => fetch(`http://localhost:5000/courses-categories`)
             },
             {
-                path: '/course-categories/:id',
-                element: <CourseCard></CourseCard>,
-                // loader: ({ params }) => fetch(`https://d-103-m-63-assignment-10-server-oct-24.vercel.app/course-categories/${params.id}`)
+                path: '/single-course/:id',
+                element: <SingleCard></SingleCard>,
+                loader: ({ params }) => fetch(`http://localhost:5000/single-course/${params.id}`)
             },
             {
                 path: '/faq',
@@ -56,6 +57,12 @@ export const routes = createBrowserRouter([
                 path: '/profile',
                 element: <PrivateRoute>
                     <Profile></Profile>
+                </PrivateRoute>
+            },
+            {
+                path: '/get-premium',
+                element: <PrivateRoute>
+                    <GetPremium></GetPremium>
                 </PrivateRoute>
             },
         ]
