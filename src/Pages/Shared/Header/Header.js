@@ -21,11 +21,12 @@ const Header = () => {
         setLightTheme(!lightTheme);
     };
 
+    // handle logOut
     const handleLogOut = () => {
         logOut().then(() => {
             toast.success('Successfully logged out.');
         }).catch((err) => {
-            console.error('err', err);
+            // console.error('err', err);
         });
     };
 
@@ -34,6 +35,7 @@ const Header = () => {
             <Container>
                 <Navbar.Brand>
                     <Link to={'/courses'}>
+                        {/* website title, header link ------------- */}
                         <img
                             src={logo}
                             width="30"
@@ -58,6 +60,7 @@ const Header = () => {
                         </div>
                     </Nav>
                     <Nav>
+                        {/* handle theme button -------------------- */}
                         <div onClick={handleTheme} >
                             {
                                 lightTheme ?
@@ -67,6 +70,7 @@ const Header = () => {
                             }
                         </div>
                         <div className='d-flex align-items-center mx-2'>
+                            {/* logIn, register, logOut button-------- */}
                             {
                                 user?.uid ?
                                     <>
@@ -86,6 +90,7 @@ const Header = () => {
                             <Link to={'/profile'}>
                                 {
                                     user?.photoURL ?
+                                        // tippy tooltips--------------------------
                                         <Tippy
                                             content={
                                                 <Image

@@ -10,12 +10,14 @@ import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const Login = () => {
     const [error, setError] = useState('');
+    // use context -----------------------------------
     const { setLoading, signIn, ProviderLogin, verifyEmail } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
 
     const from = location.state?.from?.pathname || '/';
 
+    // handle login submit button -------------------------------
     const handleLoginSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -25,7 +27,7 @@ const Login = () => {
 
         signIn(email, password).then((result) => {
             const user = result.user;
-            console.log("🚀 ~ user", user);
+            // console.log("🚀 ~ user", user);
             form.reset();
             setError('');
             if (user.emailVerified) {
@@ -36,18 +38,19 @@ const Login = () => {
                 toast.error('Your email is not verified. Please verify your email address');
             }
         }).catch((err) => {
-            console.error('err', err);
+            // console.error('err', err);
             setError(err);
         }).finally(() => {
             setLoading(false);
         });
     };
 
+    // google logIn ------------------------------------------
     const googleProvider = new GoogleAuthProvider();
     const handleGoogleSignIn = () => {
         ProviderLogin(googleProvider).then((result) => {
             const user = result.user;
-            console.log("🚀 ~ user", user);
+            // console.log("🚀 ~ user", user);
             if (user?.emailVerified) {
                 navigate(from, { replace: true });
                 toast.success('Successfully logged in.');
@@ -56,16 +59,17 @@ const Login = () => {
                 toast.error('Your email is not verified. Please verify your email address');
             }
         }).catch((err) => {
-            console.error('err', err);
+            // console.error('err', err);
             setError(err);
         });
     };
 
+    // github logIn -----------------------------------------
     const gitHubProvider = new GithubAuthProvider();
     const handleGithubSignIn = () => {
         ProviderLogin(gitHubProvider).then((result) => {
             const user = result.user;
-            console.log("🚀 ~ user", user);
+            // console.log("🚀 ~ user", user);
             if (user?.emailVerified) {
                 navigate(from, { replace: true });
                 toast.success('Successfully logged in.');
@@ -75,15 +79,16 @@ const Login = () => {
                 toast.success('Please verify your email address. If needed check spam folder');
             }
         }).catch((err) => {
-            console.error('err', err);
+            // console.error('err', err);
             setError(err);
         });
     };
 
+    // handle email verification ----------------------------------
     const handleEmailVerification = () => {
         verifyEmail().then(() => {
         }).catch((err) => {
-            console.error('err', err);
+            // console.error('err', err);
             setError(err);
         });
     };

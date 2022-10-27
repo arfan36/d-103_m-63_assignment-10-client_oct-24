@@ -11,6 +11,7 @@ const Register = () => {
     const [accepted, setAccepted] = useState(false);
     const { createUser, updateUserProfile, verifyEmail } = useContext(AuthContext);
 
+    // Handle register button -----------------------------------------
     const handleRegisterSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -29,11 +30,12 @@ const Register = () => {
             handleEmailVerification();
             toast.success('Please verify your email address. If needed check spam folder');
         }).catch((err) => {
-            console.error('err', err);
+            // console.error('err', err);
             setError(err.message);
         });
     };
 
+    // handle user profile ---------------------------------------
     const handleUpdateUserProfile = (name, photoURL) => {
         const profile = {
             displayName: name,
@@ -41,14 +43,15 @@ const Register = () => {
         };
         updateUserProfile(profile).then(() => {
         }).catch((err) => {
-            console.error('err', err);
+            // console.error('err', err);
         });
     };
 
+    // handle email verification --------------------------------
     const handleEmailVerification = () => {
         verifyEmail().then(() => {
         }).catch((err) => {
-            console.error('err', err);
+            // console.error('err', err);
         });
     };
 
