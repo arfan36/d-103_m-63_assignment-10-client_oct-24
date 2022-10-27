@@ -26,12 +26,12 @@ export const routes = createBrowserRouter([
             {
                 path: '/courses',
                 element: <Courses></Courses>,
-                loader: () => fetch(`http://localhost:5000/courses-categories`)
+                loader: () => fetch(`https://d-103-m-63-assignment-10-server-oct-24.vercel.app/courses-categories`)
             },
             {
                 path: '/single-course/:id',
                 element: <SingleCard></SingleCard>,
-                loader: ({ params }) => fetch(`http://localhost:5000/single-course/${params.id}`)
+                loader: ({ params }) => fetch(`https://d-103-m-63-assignment-10-server-oct-24.vercel.app/single-course/${params.id}`)
             },
             {
                 path: '/faq',
@@ -60,10 +60,11 @@ export const routes = createBrowserRouter([
                 </PrivateRoute>
             },
             {
-                path: '/get-premium',
+                path: '/get-premium/:id',
                 element: <PrivateRoute>
                     <GetPremium></GetPremium>
-                </PrivateRoute>
+                </PrivateRoute>,
+                loader: ({ params }) => fetch(`https://d-103-m-63-assignment-10-server-oct-24.vercel.app/get-premium/${params.id}`)
             },
         ]
     }

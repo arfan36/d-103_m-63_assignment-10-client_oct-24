@@ -17,7 +17,7 @@ const SingleCard = () => {
                     <p className="card-text">{description}</p>
                     <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
                 </div>
-                <Link to={'/get-premium'}><button className='btn btn-primary w-100'>Get Premium</button></Link>
+                <Link to={`/get-premium/${id}`}><button className='btn btn-primary w-100'>Get Premium</button></Link>
             </div>
         </div>
     );
