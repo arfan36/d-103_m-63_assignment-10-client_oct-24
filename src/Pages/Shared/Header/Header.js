@@ -9,6 +9,8 @@ import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import { FaUser } from "react-icons/fa";
 import { MdNightlight, MdOutlineLightMode } from "react-icons/md";
 import './Header.css';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -80,11 +82,21 @@ const Header = () => {
                             <Link to={'/profile'}>
                                 {
                                     user?.photoURL ?
-                                        <Image
-                                            style={{ height: '30px' }}
-                                            roundedCircle
-                                            src={user?.photoURL}
-                                        ></Image>
+                                        <Tippy
+                                            content={
+                                                <Image
+                                                    style={{ height: '200px' }}
+                                                    rounded
+                                                    src={user?.photoURL}
+                                                ></Image>
+                                            }
+                                        >
+                                            <Image
+                                                style={{ height: '30px' }}
+                                                roundedCircle
+                                                src={user?.photoURL}
+                                            ></Image>
+                                        </Tippy>
                                         :
                                         <FaUser></FaUser>
                                 }
