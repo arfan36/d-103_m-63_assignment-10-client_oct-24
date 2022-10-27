@@ -85,6 +85,7 @@ const Register = () => {
             <Button variant="primary" type="submit" disabled={!accepted}>
                 Register
             </Button>
+            <p>Already have a account <Link to={'/login'}>Login</Link></p>
             <Form.Text className="text-danger ms-3">
                 {error}
             </Form.Text>

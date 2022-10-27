@@ -1,13 +1,16 @@
+import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
+import { ButtonGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import toast from 'react-hot-toast';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { FaGithub, FaGoogle } from 'react-icons/fa';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const Login = () => {
     const [error, setError] = useState('');
-    const { setLoading, signIn } = useContext(AuthContext);
+    const { setLoading, signIn, ProviderLogin, verifyEmail } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -27,6 +30,7 @@ const Login = () => {
             setError('');
             if (user.emailVerified) {
                 navigate(from, { replace: true });
+                toast.success('Successfully logged in.');
             }
             else {
                 toast.error('Your email is not verified. Please verify your email address');
@@ -36,6 +40,51 @@ const Login = () => {
             setError(err);
         }).finally(() => {
             setLoading(false);
+        });
+    };
+
+    const googleProvider = new GoogleAuthProvider();
+    const handleGoogleSignIn = () => {
+        ProviderLogin(googleProvider).then((result) => {
+            const user = result.user;
+            console.log("🚀 ~ user", user);
+            if (user?.emailVerified) {
+                navigate(from, { replace: true });
+                toast.success('Successfully logged in.');
+            }
+            else {
+                toast.error('Your email is not verified. Please verify your email address');
+            }
+        }).catch((err) => {
+            console.error('err', err);
+            setError(err);
+        });
+    };
+
+    const gitHubProvider = new GithubAuthProvider();
+    const handleGithubSignIn = () => {
+        ProviderLogin(gitHubProvider).then((result) => {
+            const user = result.user;
+            console.log("🚀 ~ user", user);
+            if (user?.emailVerified) {
+                navigate(from, { replace: true });
+                toast.success('Successfully logged in.');
+            }
+            else {
+                handleEmailVerification();
+                toast.success('Please verify your email address. If needed check spam folder');
+            }
+        }).catch((err) => {
+            console.error('err', err);
+            setError(err);
+        });
+    };
+
+    const handleEmailVerification = () => {
+        verifyEmail().then(() => {
+        }).catch((err) => {
+            console.error('err', err);
+            setError(err);
         });
     };
 
@@ -55,9 +104,14 @@ const Login = () => {
                     Login
                 </Button>
                 <Form.Text className='text-danger ms-3'>
-                    {error}
+                    {error.message}
                 </Form.Text>
+                <p>New to here <Link to={'/register'}>Register</Link></p>
             </Form>
+            <ButtonGroup vertical className='mt-2'>
+                <Button onClick={handleGoogleSignIn} variant='outline-primary' className='mb-2'><FaGoogle /> Login with Google</Button>
+                <Button onClick={handleGithubSignIn} variant='outline-primary'><FaGithub /> Login with Github</Button>
+            </ButtonGroup>
         </>
     );
 };

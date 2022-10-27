@@ -11,6 +11,7 @@ import { MdNightlight, MdOutlineLightMode } from "react-icons/md";
 import './Header.css';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import toast from 'react-hot-toast';
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -22,6 +23,7 @@ const Header = () => {
 
     const handleLogOut = () => {
         logOut().then(() => {
+            toast.success('Successfully logged out.');
         }).catch((err) => {
             console.error('err', err);
         });
@@ -69,7 +71,9 @@ const Header = () => {
                                 user?.uid ?
                                     <>
                                         <span>{user.displayName}</span>
-                                        <Button variant='light' onClick={handleLogOut} className="ms-1">Log Out</Button>
+                                        <Link to={'/login'}>
+                                            <Button variant='light' onClick={handleLogOut} className="ms-1">Log Out</Button>
+                                        </Link>
                                     </>
                                     :
                                     <>
