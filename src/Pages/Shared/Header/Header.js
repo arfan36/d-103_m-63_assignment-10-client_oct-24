@@ -8,6 +8,7 @@ import logo from '../../../assets/logo.png';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import { FaUser } from "react-icons/fa";
 import { MdNightlight, MdOutlineLightMode } from "react-icons/md";
+import './Header.css';
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -61,12 +62,12 @@ const Header = () => {
                                     <Button variant="dark"> <MdNightlight /> dark</Button>
                             }
                         </div>
-                        <div className='d-flex align-items-center ms-2'>
+                        <div className='d-flex align-items-center mx-2'>
                             {
                                 user?.uid ?
                                     <>
                                         <span>{user.displayName}</span>
-                                        <Button variant='light' onClick={handleLogOut}>Log Out</Button>
+                                        <Button variant='light' onClick={handleLogOut} className="ms-1">Log Out</Button>
                                     </>
                                     :
                                     <>
