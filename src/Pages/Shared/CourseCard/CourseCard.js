@@ -12,7 +12,7 @@ const CourseCard = ({ course }) => {
                 </div>
                 <h2 className="card-title text-center">{name}</h2>
                 <div className="card-footer">
-                    <Link to={id}>
+                    <Link to={`/single-course/${id}`}>
                         <button className='btn btn-outline-primary w-100'>Details</button>
                     </Link>
                 </div>
